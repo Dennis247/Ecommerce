@@ -4,6 +4,11 @@ services:
   catalogdb:
     image: mongo
 
+  cartdb:
+    image: redis:alpine
+
+  portainer:
+    image: portainer/portainer-ce
 
   catalogue.api:
     image: ${DOCKER_REGISTRY-}catalogueapi
@@ -11,5 +16,12 @@ services:
       context: .
       dockerfile: Services/Catalogue.API/Dockerfile
 
+  cart.api:
+    image: ${DOCKER_REGISTRY-}cartapi
+    build:
+      context: .
+      dockerfile: Services/Cart.API/Dockerfile
+
 volumes:
  mongo_data:
+ portainer_data:
