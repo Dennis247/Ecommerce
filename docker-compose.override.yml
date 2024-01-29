@@ -52,7 +52,7 @@ services:
     container_name: catalog_api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings_ConnectionString=mongodb://catalogdb:27017"
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     depends_on:
       - catalogdb
     ports:
@@ -67,3 +67,13 @@ services:
       - cartdb
     ports:
       - "8081:8080"
+
+  discount.api:
+    container_name: discount.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaeSettings:ConnectionString=Server=localhost;Port=5432;Database=DiscountDb;User Id=admin;Password=Nappyboy@247"
+    depends_on:
+        - disountdb
+    ports:
+      - "8082:8080"
