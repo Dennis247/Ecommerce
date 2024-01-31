@@ -63,6 +63,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=cartdb:6379"
+      - "GrpcSettings:DiscountUrl=http://192.168.1.142:8084"
     depends_on:
       - cartdb
     ports:
@@ -77,3 +78,13 @@ services:
         - discountdb
     ports:
       - "8083:8080"
+
+  discount.grpc:
+    container_name: discount.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=Nappyboy@247;"
+    depends_on:
+      - discountdb
+    ports:
+      - "8084:8080"
