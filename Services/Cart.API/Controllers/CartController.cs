@@ -1,6 +1,10 @@
 ﻿using Cart.API.Entities;
 using Cart.API.GrpcServices;
 using Cart.API.Repositories.Interfaces;
+using EventBus.Messages.Events;
+using EventBusMessages.Common;
+using MassTransit;
+using MassTransit.Transports;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -12,11 +16,13 @@ namespace Cart.API.Controllers
     {
         private readonly IBasketRepository _repository;
         private readonly DiscountGrpcService _discountGrpcService;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public CartController(IBasketRepository repository, DiscountGrpcService discountGrpcService)
+        public CartController(IBasketRepository repository, DiscountGrpcService discountGrpcService, IPublishEndpoint publishEndpoint)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _discountGrpcService = discountGrpcService ?? throw new ArgumentNullException(nameof(discountGrpcService));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpGet("{userName}", Name = "GetBasket")]
@@ -60,6 +66,12 @@ namespace Cart.API.Controllers
             {
                 return BadRequest();
             }
+
+            // send checkout event to rabbitmq
+            var eventMessage = new CartCheckoutEvent();
+            CustomMapper.MapProperties(basketCheckout, eventMessage);
+            eventMessage.TotalPrice = basket.TotalPrice;
+            await _publishEndpoint.Publish<CartCheckoutEvent>(eventMessage);
 
             // remove the basket
             await _repository.DeleteBasket(basket.UserName);

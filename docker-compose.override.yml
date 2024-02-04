@@ -18,7 +18,7 @@ services:
   discountdb:
     container_name: discountdb
     environment:
-      - POSTGRES_USER=admin
+      -  POSTGRES_USER=admin
       - "POSTGRES_PASSWORD=Nappyboy@247"
       - "POSTGRES_DB=DiscountDb"
     restart: always
@@ -26,6 +26,23 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
+
+  orderdb:
+    container_name: orderdb
+    environment:
+        MSSQL_SA_PASSWORD: "Nappyboy@247"
+        ACCEPT_EULA: "Y"
+        MSSQL_PID : "Express"
+    restart: always
+    ports:
+        - "1433:1433"
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
 
   pgadmin:
     container_name: pgadmin
@@ -88,3 +105,13 @@ services:
       - discountdb
     ports:
       - "8084:8080"
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Nappyboy@247;MultipleActiveResultSets=true;TrustServerCertificate=True"            
+    depends_on:
+        - orderdb
+    ports:
+        - "8085:8080"
