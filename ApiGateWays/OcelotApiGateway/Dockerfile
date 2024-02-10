@@ -8,18 +8,17 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/Cart.API/Cart.API.csproj", "Services/Cart.API/"]
-COPY ["BuildingBlocks/EventBusMessages/EventBusMessages.csproj", "BuildingBlocks/EventBusMessages/"]
-RUN dotnet restore "./Services/Cart.API/./Cart.API.csproj"
+COPY ["ApiGateWays/OcelotApiGateway/OcelotApiGateway.csproj", "ApiGateWays/OcelotApiGateway/"]
+RUN dotnet restore "./ApiGateWays/OcelotApiGateway/./OcelotApiGateway.csproj"
 COPY . .
-WORKDIR "/src/Services/Cart.API"
-RUN dotnet build "./Cart.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/ApiGateWays/OcelotApiGateway"
+RUN dotnet build "./OcelotApiGateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Cart.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./OcelotApiGateway.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Cart.API.dll"]
+ENTRYPOINT ["dotnet", "OcelotApiGateway.dll"]
