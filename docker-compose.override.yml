@@ -134,13 +134,13 @@ services:
     container_name: shopping.aggregator
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-        - "ApiSettings:CatalogUrl=http://catalog.api"
-        - "ApiSettings:BasketUrl=http://basket.api"
-        - "ApiSettings:OrderingUrl=http://ordering.api"
+        - "ApiSettings:CatalogUrl=http://192.168.1.142:8080"
+        - "ApiSettings:BasketUrl=http://192.168.1.142:8081"
+        - "ApiSettings:OrderingUrl=http://192.168.1.142:8085"
         - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     depends_on:
-        - catalog.api
-        - basket.api
+        - catalogue.api
+        - cart.api
         - ordering.api
     ports:
         - "8087:8080"

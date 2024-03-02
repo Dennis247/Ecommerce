@@ -41,7 +41,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateWays", "ApiGateWays"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "ApiGateWays\OcelotApiGateway\OcelotApiGateway.csproj", "{1EF8B481-C4FA-42F9-9782-EF6FFD7560AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Aggregator", "ApiGateWays\Shopping.Aggregator\Shopping.Aggregator.csproj", "{8B4BD696-E0EB-4F26-8000-C882C536D822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopping.Aggregator", "ApiGateWays\Shopping.Aggregator\Shopping.Aggregator.csproj", "{8B4BD696-E0EB-4F26-8000-C882C536D822}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{D59A78BD-FFB7-426C-92DE-7F0B25DC35B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Web", "WebApps\Shopping.Web\Shopping.Web.csproj", "{80783BF4-CE4A-4C44-824C-B1D8B5156940}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +105,10 @@ Global
 		{8B4BD696-E0EB-4F26-8000-C882C536D822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B4BD696-E0EB-4F26-8000-C882C536D822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B4BD696-E0EB-4F26-8000-C882C536D822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80783BF4-CE4A-4C44-824C-B1D8B5156940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80783BF4-CE4A-4C44-824C-B1D8B5156940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80783BF4-CE4A-4C44-824C-B1D8B5156940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80783BF4-CE4A-4C44-824C-B1D8B5156940}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +130,7 @@ Global
 		{E1A6ABA2-19AC-42DF-85A4-4490BC616931} = {FC0A92EE-81F0-4D85-856D-96F0DC5F7BBC}
 		{1EF8B481-C4FA-42F9-9782-EF6FFD7560AD} = {8041F1F0-DA2B-432B-A178-CC7377876F6A}
 		{8B4BD696-E0EB-4F26-8000-C882C536D822} = {8041F1F0-DA2B-432B-A178-CC7377876F6A}
+		{80783BF4-CE4A-4C44-824C-B1D8B5156940} = {D59A78BD-FFB7-426C-92DE-7F0B25DC35B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2308349C-4845-411F-9607-4DD73C07B51E}
